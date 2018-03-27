@@ -1,0 +1,17 @@
+{
+  "name": "purescript-idiomatic-node-http",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^3.1.1",
+    "purescript-unsafe-coerce": "^3.0.0",
+    "purescript-idiomatic-node-stream": "^0.2.0"
+  },
+  "devDependencies": {
+    "purescript-psci-support": "^3.0.0"
+  }
+}
