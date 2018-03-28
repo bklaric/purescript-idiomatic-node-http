@@ -5,6 +5,7 @@ import Prelude
 import Control.Monad.Effect (Effect)
 import Control.Monad.Effect.Exception (Error)
 import Data.Foreign (Foreign)
+import Node.Events.Event (Event(..))
 import Node.Events.EventEmitter (undefined)
 import Node.Stream.Readable (class Readable)
 
@@ -42,3 +43,11 @@ foreign import defaultDestroy
 
 destroy_ :: forall message. IncomingMessage message => message -> Effect Unit
 destroy_ = destroy undefined
+
+aborted :: forall message. IncomingMessage message =>
+    Event message (Effect Unit)
+aborted = Event "aborted"
+
+close :: forall message. IncomingMessage message =>
+    Event message (Effect Unit)
+close = Event "close"
