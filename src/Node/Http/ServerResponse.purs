@@ -5,6 +5,7 @@ import Prelude
 import Control.Monad.Effect (Effect)
 import Data.Foreign (Foreign)
 import Data.Nullable (Nullable)
+import Node.Events.Event (Event(..))
 import Node.Events.EventEmitter (class EventEmitter)
 import Node.Events.EventEmitter as EventEmitter
 import Node.Stream.Writable (class Writable, undefined)
@@ -82,3 +83,9 @@ writeHead_' statusCode statusMessage = writeHead statusCode statusMessage undefi
 
 writeHead__ :: Int -> ServerResponse -> Effect Unit
 writeHead__ statusCode = writeHead statusCode undefined undefined
+
+close :: Event ServerResponse (Effect Unit)
+close = Event "close"
+
+finish :: Event ServerResponse (Effect Unit)
+finish = Event "finish"
