@@ -1,34 +1,44 @@
 module Node.Http.IncomingMessage where
 
-import Node.Events.EventEmitter as EventEmitter
-import Node.Stream.Readable as Readable
+import Prelude
 
-foreign import data IncomingMessage :: Type
+import Control.Monad.Effect (Effect)
+import Control.Monad.Effect.Exception (Error)
+import Data.Foreign (Foreign)
+import Node.Events.EventEmitter (undefined)
+import Node.Stream.Readable (class Readable)
 
-instance eventEmitterServerResponse
-    :: EventEmitter.EventEmitter IncomingMessage where
-    on                  = EventEmitter.defaultOn
-    once                = EventEmitter.defaultOnce
-    prependListener     = EventEmitter.defaultPrependListener
-    prependOnceListener = EventEmitter.defaultPrependOnceListener
-    removeListener      = EventEmitter.defaultRemoveListener
-    removeAllListeners  = EventEmitter.defaultRemoveAllListeners
-    emit                = EventEmitter.defaultEmit
-    listeners           = EventEmitter.defaultListeners
-    listenerCount       = EventEmitter.defaultListenerCount
-    getMaxListeners     = EventEmitter.defaultGetMaxListeners
-    setMaxListeners     = EventEmitter.defaultSetMaxListeners
-    eventNames          = EventEmitter.defaultEventNames
+class Readable message <= IncomingMessage message where
+    httpVersion :: message -> String
+    rawHeaders  :: message -> Array String
+    headers     :: message -> Foreign
+    trailers    :: message -> Effect Foreign
+    setTimeout  :: Int -> Effect Unit -> message -> Effect message
+    destroy     :: Error -> message -> Effect Unit
 
-instance readableIncomingMessage :: Readable.Readable IncomingMessage  where
-    readableHighWaterMark   = Readable.defaultReadableHighWaterMark
-    readableLength          = Readable.defaultReadableLength
-    isPaused                = Readable.defaultIsPaused
-    pause                   = Readable.defaultPause
-    read                    = Readable.defaultRead
-    resume                  = Readable.defaultResume
-    pipe                    = Readable.defaultPipe
-    unpipe                  = Readable.defaultUnpipe
-    setEncoding             = Readable.defaultSetEncoding
-    unshift                 = Readable.defaultUnshift
-    destroy                 = Readable.defaultDestroy
+foreign import defaultHttpVersion
+    :: forall message
+    .  message -> String
+
+foreign import defaultRawHeaders
+    :: forall message
+    .  message -> Array String
+
+foreign import defaultHeaders
+    :: forall message
+    .  message -> Foreign
+
+foreign import defaultTrailers
+    :: forall message
+    .  message -> Effect Foreign
+
+foreign import defaultSetTimeout
+    :: forall message
+    .  Int -> Effect Unit -> message -> Effect message
+
+foreign import defaultDestroy
+    :: forall message
+    .  Error -> message -> Effect Unit
+
+destroy_ :: forall message. IncomingMessage message => message -> Effect Unit
+destroy_ = destroy undefined

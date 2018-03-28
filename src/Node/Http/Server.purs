@@ -8,13 +8,13 @@ module Node.Http.Server
 import Prelude
 
 import Control.Monad.Effect (Effect)
-import Node.Http.IncomingMessage (IncomingMessage)
+import Node.Http.ServerRequest (ServerRequest)
 import Node.Http.ServerResponse (ServerResponse)
 import Node.Net.Server (class NetServer, defaultListen)
 
 foreign import data HttpServerImpl :: Type
 
-type Request = IncomingMessage
+type Request = ServerRequest
 
 type Response = ServerResponse
 
