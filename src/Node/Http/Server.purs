@@ -18,7 +18,7 @@ type Request = ServerRequest
 
 type Response = ServerResponse
 
-foreign import create :: forall effects.
+foreign import create ::
     (Request -> Response -> Effect Unit) -> Effect HttpServerImpl
 
 instance netServerHttpServerImpl :: NetServer HttpServerImpl where
