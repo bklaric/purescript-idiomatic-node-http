@@ -43,3 +43,7 @@ instance incomingMessageServerRequest :: IncomingMessage ServerRequest where
     trailers    = IncomingMessage.defaultTrailers
     setTimeout  = IncomingMessage.defaultSetTimeout
     destroy     = IncomingMessage.defaultDestroy
+
+foreign import method :: ServerRequest -> String
+
+foreign import url :: ServerRequest -> String
