@@ -24,17 +24,17 @@ instance eventEmitterServerResponse :: EventEmitter ServerRequest where
     eventNames          = EventEmitter.defaultEventNames
 
 instance readableServerRequest :: Readable ServerRequest where
-    readableHighWaterMark   = Readable.defaultReadableHighWaterMark
-    readableLength          = Readable.defaultReadableLength
-    isPaused                = Readable.defaultIsPaused
-    pause                   = Readable.defaultPause
-    read                    = Readable.defaultRead
-    resume                  = Readable.defaultResume
-    pipe                    = Readable.defaultPipe
-    unpipe                  = Readable.defaultUnpipe
-    setEncoding             = Readable.defaultSetEncoding
-    unshift                 = Readable.defaultUnshift
-    destroy                 = Readable.defaultDestroy
+    readableHighWaterMark = Readable.defaultReadableHighWaterMark
+    readableLength        = Readable.defaultReadableLength
+    isPaused              = Readable.defaultIsPaused
+    pause                 = Readable.defaultPause
+    read                  = Readable.defaultRead
+    resume                = Readable.defaultResume
+    pipe                  = Readable.defaultPipe
+    unpipe                = Readable.defaultUnpipe
+    setEncoding           = Readable.defaultSetEncoding
+    unshift               = Readable.defaultUnshift
+    destroy               = Readable.defaultDestroy
 
 instance incomingMessageServerRequest :: IncomingMessage ServerRequest where
     httpVersion = IncomingMessage.defaultHttpVersion
