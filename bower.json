@@ -1,5 +1,13 @@
 {
   "name": "purescript-idiomatic-node-http",
+  "description": "An idiomatic wrapper for Node's HTTP API.",
+  "homepage": "https://github.com/bklaric/purescript-idiomatic-node-http",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bklaric/purescript-idiomatic-node-http.git"
+  },
+  "license": "AGPL-3.0",
+  "version": "0.1.0",
   "ignore": [
     "**/.*",
     "node_modules",
