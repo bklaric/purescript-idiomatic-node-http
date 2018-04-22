@@ -1,0 +1,9 @@
+{
+  "name": "purescript-idiomatic-node-http",
+  "set": "master",
+  "source": "https://github.com/bklaric/package-sets.git",
+  "depends": [
+    "idiomatic-node-stream",
+    "idiomatic-node-server"
+  ]
+}

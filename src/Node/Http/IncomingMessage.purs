@@ -2,12 +2,12 @@ module Node.Http.IncomingMessage where
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
-import Control.Monad.Effect.Exception (Error)
 import Data.Foreign (Foreign)
+import Effect (Effect)
+import Node.Errors (Error)
 import Node.Events.Event (Event(..))
-import Node.Events.EventEmitter (undefined)
 import Node.Stream.Readable (class Readable)
+import Undefined (undefined)
 
 class Readable message <= IncomingMessage message where
     httpVersion :: message -> String

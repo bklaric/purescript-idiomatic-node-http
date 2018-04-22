@@ -7,7 +7,7 @@ module Node.Http.Server
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
+import Effect (Effect)
 import Node.Events.EventEmitter as EventEmitter
 import Node.Events.EventEmitter (class EventEmitter)
 import Node.Http.ServerRequest (ServerRequest)
