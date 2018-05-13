@@ -35,6 +35,9 @@ create requestErrorListener responseErrorListener callback =
         response # on Response.error responseErrorListener' # void
         callback request response
 
+create_ :: (Request -> Response -> Effect Unit) -> Effect HttpServer
+create_ callback = create (const $ pure unit) (const $ pure unit) callback
+
 instance eventEmitterHttpServer :: EventEmitter HttpServer where
     on                  = EventEmitter.defaultOn
     once                = EventEmitter.defaultOnce
