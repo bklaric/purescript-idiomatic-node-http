@@ -44,6 +44,10 @@ foreign import defaultDestroy
 destroy_ :: forall message. IncomingMessage message => message -> Effect Unit
 destroy_ = destroy undefined
 
+error :: forall message. IncomingMessage message =>
+    Event message (Error -> Effect Unit)
+error = Event "error"
+
 aborted :: forall message. IncomingMessage message =>
     Event message (Effect Unit)
 aborted = Event "aborted"

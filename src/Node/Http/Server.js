@@ -2,7 +2,7 @@
 
 var http = require("http")
 
-exports.create = function (requestListener) {
+exports.createImpl = function (requestListener) {
     return function () {
         return http.createServer(function (request, response) {
             requestListener(request)(response)()
