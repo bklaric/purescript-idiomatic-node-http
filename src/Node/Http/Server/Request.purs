@@ -1,4 +1,4 @@
-module Node.Http.ServerRequest where
+module Node.Http.Server.Request where
 
 import Node.Events.EventEmitter (class EventEmitter)
 import Node.Events.EventEmitter as EventEmitter
@@ -7,9 +7,9 @@ import Node.Http.IncomingMessage as IncomingMessage
 import Node.Stream.Readable (class Readable)
 import Node.Stream.Readable as Readable
 
-foreign import data ServerRequest :: Type
+foreign import data Request :: Type
 
-instance eventEmitterServerResponse :: EventEmitter ServerRequest where
+instance eventEmitterServerResponse :: EventEmitter Request where
     on                  = EventEmitter.defaultOn
     once                = EventEmitter.defaultOnce
     prependListener     = EventEmitter.defaultPrependListener
@@ -23,7 +23,7 @@ instance eventEmitterServerResponse :: EventEmitter ServerRequest where
     setMaxListeners     = EventEmitter.defaultSetMaxListeners
     eventNames          = EventEmitter.defaultEventNames
 
-instance readableServerRequest :: Readable ServerRequest where
+instance readableRequest :: Readable Request where
     readableHighWaterMark = Readable.defaultReadableHighWaterMark
     readableLength        = Readable.defaultReadableLength
     isPaused              = Readable.defaultIsPaused
@@ -36,7 +36,7 @@ instance readableServerRequest :: Readable ServerRequest where
     unshift               = Readable.defaultUnshift
     destroy               = Readable.defaultDestroy
 
-instance incomingMessageServerRequest :: IncomingMessage ServerRequest where
+instance incomingMessageRequest :: IncomingMessage Request where
     httpVersion = IncomingMessage.defaultHttpVersion
     rawHeaders  = IncomingMessage.defaultRawHeaders
     headers     = IncomingMessage.defaultHeaders
@@ -44,6 +44,6 @@ instance incomingMessageServerRequest :: IncomingMessage ServerRequest where
     setTimeout  = IncomingMessage.defaultSetTimeout
     destroy     = IncomingMessage.defaultDestroy
 
-foreign import method :: ServerRequest -> String
+foreign import method :: Request -> String
 
-foreign import url :: ServerRequest -> String
+foreign import url :: Request -> String

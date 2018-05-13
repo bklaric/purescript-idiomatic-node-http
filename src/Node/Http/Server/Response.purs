@@ -1,10 +1,11 @@
-module Node.Http.ServerResponse where
+module Node.Http.Server.Response where
 
 import Prelude
 
 import Data.Foreign (Foreign)
 import Data.Nullable (Nullable)
 import Effect (Effect)
+import Node.Errors (Error)
 import Node.Events.Event (Event(..))
 import Node.Events.EventEmitter (class EventEmitter)
 import Node.Events.EventEmitter as EventEmitter
@@ -13,9 +14,9 @@ import Node.Stream.Writable as Writable
 import Undefined (undefined)
 import Unsafe.Coerce (unsafeCoerce)
 
-foreign import data ServerResponse :: Type
+foreign import data Response :: Type
 
-instance eventEmitterServerResponse :: EventEmitter ServerResponse where
+instance eventEmitterResponse :: EventEmitter Response where
     on                  = EventEmitter.defaultOn
     once                = EventEmitter.defaultOnce
     prependListener     = EventEmitter.defaultPrependListener
@@ -29,7 +30,7 @@ instance eventEmitterServerResponse :: EventEmitter ServerResponse where
     setMaxListeners     = EventEmitter.defaultSetMaxListeners
     eventNames          = EventEmitter.defaultEventNames
 
-instance writableServerResponse :: Writable ServerResponse where
+instance writableResponse :: Writable Response where
     writableHighWaterMark   = Writable.defaultWritableHighWaterMark
     writableLength          = Writable.defaultWritableLength
     cork                    = Writable.defaultCork
@@ -39,76 +40,79 @@ instance writableServerResponse :: Writable ServerResponse where
     destroy                 = Writable.defaultDestroy
 
 foreign import addTrailers ::
-    Foreign -> ServerResponse -> Effect Unit
+    Foreign -> Response -> Effect Unit
 
 foreign import finished ::
-    ServerResponse -> Effect Boolean
+    Response -> Effect Boolean
 
 foreign import getHeader ::
-    String -> ServerResponse -> Effect String
+    String -> Response -> Effect String
 
 foreign import getHeaderNames ::
-    ServerResponse -> Effect (Array String)
+    Response -> Effect (Array String)
 
 foreign import getHeaders ::
-    ServerResponse -> Effect Foreign
+    Response -> Effect Foreign
 
 foreign import hasHeader ::
-    String -> ServerResponse -> Effect Boolean
+    String -> Response -> Effect Boolean
 
 foreign import headersSent ::
-    ServerResponse -> Effect Boolean
+    Response -> Effect Boolean
 
 foreign import removeHeader ::
-    String -> ServerResponse -> Effect Unit
+    String -> Response -> Effect Unit
 
 foreign import getSendDate ::
-    ServerResponse -> Effect Boolean
+    Response -> Effect Boolean
 
 foreign import setSendDate ::
-    Boolean -> ServerResponse -> Effect Unit
+    Boolean -> Response -> Effect Unit
 
 foreign import setHeader ::
-    String -> String -> ServerResponse -> Effect Unit
+    String -> String -> Response -> Effect Unit
 
 foreign import setHeader' ::
-    String -> Array String -> ServerResponse -> Effect Unit
+    String -> Array String -> Response -> Effect Unit
 
 foreign import defaultSetTimeout ::
-    Int -> Effect Unit -> ServerResponse -> Effect ServerResponse
+    Int -> Effect Unit -> Response -> Effect Response
 
 foreign import getStatusCode ::
-    ServerResponse -> Effect Int
+    Response -> Effect Int
 
 foreign import setStatusCode ::
-    Int -> ServerResponse -> Effect Unit
+    Int -> Response -> Effect Unit
 
 foreign import getStatusMessage ::
-    ServerResponse -> Effect (Nullable String)
+    Response -> Effect (Nullable String)
 
 foreign import setStatusMessage ::
-    String -> ServerResponse -> Effect Unit
+    String -> Response -> Effect Unit
 
 foreign import writeContinue ::
-    ServerResponse -> Effect Unit
+    Response -> Effect Unit
 
 foreign import writeHead ::
-    Int -> String -> Foreign -> ServerResponse -> Effect Unit
+    Int -> String -> Foreign -> Response -> Effect Unit
 
-writeHead_ :: Int -> Foreign -> ServerResponse -> Effect Unit
+writeHead_ :: Int -> Foreign -> Response -> Effect Unit
 writeHead_ statusCode headers =
     writeHead statusCode (unsafeCoerce headers) undefined
 
-writeHead_' :: Int -> String -> ServerResponse -> Effect Unit
+writeHead_' :: Int -> String -> Response -> Effect Unit
 writeHead_' statusCode statusMessage =
     writeHead statusCode statusMessage undefined
 
-writeHead__ :: Int -> ServerResponse -> Effect Unit
+writeHead__ :: Int -> Response -> Effect Unit
 writeHead__ statusCode =
     writeHead statusCode undefined undefined
 
-close :: Event ServerResponse (Effect Unit)
+error :: Event Response (Error -> Effect Unit)
+error = Event "error"
+
+close :: Event Response (Effect Unit)
 close = Event "close"
 
-finish :: Event ServerResponse (Effect Unit)
+finish :: Event Response (Effect Unit)
 finish = Event "finish"

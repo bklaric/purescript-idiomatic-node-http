@@ -1,7 +1,5 @@
 module Node.Http.Server
     ( HttpServer
-    , Request
-    , Response
     , create
     ) where
 
@@ -10,15 +8,11 @@ import Prelude
 import Effect (Effect)
 import Node.Events.EventEmitter as EventEmitter
 import Node.Events.EventEmitter (class EventEmitter)
-import Node.Http.ServerRequest (ServerRequest)
-import Node.Http.ServerResponse (ServerResponse)
+import Node.Http.Server.Request (Request)
+import Node.Http.Server.Response (Response)
 import Node.Server (class Server, defaultListen)
 
 foreign import data HttpServer :: Type
-
-type Request = ServerRequest
-
-type Response = ServerResponse
 
 foreign import create ::
     (Request -> Response -> Effect Unit) -> Effect HttpServer
