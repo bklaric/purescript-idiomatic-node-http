@@ -1,6 +1,7 @@
 module Node.Http.Server
     ( HttpServer
     , create
+    , create_
     ) where
 
 import Prelude
