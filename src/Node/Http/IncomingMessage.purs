@@ -3,6 +3,7 @@ module Node.Http.IncomingMessage where
 import Prelude
 
 import Data.Foreign (Foreign)
+import Data.StrMap (StrMap)
 import Effect (Effect)
 import Node.Errors (Error)
 import Node.Events.Event (Event(..))
@@ -12,7 +13,7 @@ import Undefined (undefined)
 class Readable message <= IncomingMessage message where
     httpVersion :: message -> String
     rawHeaders  :: message -> Array String
-    headers     :: message -> Foreign
+    headers     :: message -> StrMap Foreign
     trailers    :: message -> Effect Foreign
     setTimeout  :: Int -> Effect Unit -> message -> Effect message
     destroy     :: Error -> message -> Effect Unit
@@ -27,7 +28,7 @@ foreign import defaultRawHeaders
 
 foreign import defaultHeaders
     :: forall message
-    .  message -> Foreign
+    .  message -> StrMap Foreign
 
 foreign import defaultTrailers
     :: forall message
