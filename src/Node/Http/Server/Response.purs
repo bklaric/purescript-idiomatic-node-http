@@ -2,7 +2,7 @@ module Node.Http.Server.Response where
 
 import Prelude
 
-import Data.Foreign (Foreign)
+import Foreign (Foreign)
 import Data.Nullable (Nullable)
 import Effect (Effect)
 import Node.Errors (Error)
